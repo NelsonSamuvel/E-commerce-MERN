@@ -37,4 +37,38 @@ const createUser = asyncHandler(async (req, res) => {
   }
 });
 
-export { createUser };
+const loginUser = asyncHandler(async (req, res) => {
+  const { email, password } = req.body;
+
+  const existUser = await User.findOne({ email });
+
+  if (existUser) {
+    const isPasswordValid = await byCrypt.compare(password, existUser.password);
+
+    if (isPasswordValid) {
+      generateToken(res, existUser._id);
+
+      res.status(200).json({
+        id: existUser._id,
+        username: existUser.username,
+        email: existUser.email,
+        isAdmin: existUser.isAdmin,
+      });
+
+      return;
+    }
+    return res.status(400).send("Invalid Password");
+  }
+  return res.send(400).send("User not found");
+});
+
+const logoutUser = asyncHandler(async (req, res) => {
+  res.cookie("jwt", "", {
+    httpOnly: true,
+    expires: new Date(0),
+  });
+
+  res.status(200).json({ message: "Logged out successfully" });
+});
+
+export { createUser, loginUser, logoutUser };
