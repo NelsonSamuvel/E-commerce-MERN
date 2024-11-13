@@ -1,7 +1,14 @@
+import Navigation from "./pages/Auth/Navigation";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/ReactToastify.css";
+import { Outlet } from "react-router-dom";
+
 export default function App() {
   return (
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
-  )
+    <>
+      <ToastContainer />
+      <Navigation />
+      <Outlet />
+    </>
+  );
 }
