@@ -15,3 +15,18 @@
   --color-darkLight: #09090b;
   --color-text: #fafaf9;
 }
+
+@layer base {
+  .margin-l {
+    @apply ml-[10rem];
+  }
+  .padding-t {
+    @apply pt-28;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply bg-primary px-4 py-1.5 rounded hover:opacity-80 font-semibold;
+  }
+}
