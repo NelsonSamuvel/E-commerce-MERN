@@ -9,16 +9,34 @@ import {
   HiOutlineUserPlus,
   HiUser,
 } from "react-icons/hi2";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { logout } from "../../redux/features/auth/authSlice";
+import { toast } from "react-toastify";
+import { useLogoutMutation } from "../../redux/api/usersApiSlice";
 
 const Navigation = () => {
+  const [logoutUser, { isLoading }] = useLogoutMutation();
   const { userInfo } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [showDropdown, setShowdropdown] = useState(false);
 
   const handleDropdown = () => {
     setShowdropdown(!showDropdown);
+  };
+
+  const handleLogout = async () => {
+    try {
+      const data = await logoutUser().unwrap();
+      dispatch(logout());
+      toast.success(data.message);
+      navigate("/login", { replace: true });
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to log out");
+    }
   };
 
   return (
@@ -59,32 +77,40 @@ const Navigation = () => {
           <span className="hidden group-hover:block">Favorites</span>
         </Link>
       </div>
-      <div
-        onClick={handleDropdown}
-        className="relative group-hover:flex items-center gap-4"
-      >
-        <HiUser size={25} className="mx-auto group-hover:mx-0 text-primary" />
-        <div className="flex gap-1 cursor-pointer items-center">
-          <p className="text-center hidden group-hover:block">
-            {userInfo.username}
-          </p>
-          <HiChevronDown className="hidden group-hover:block" />
+      {userInfo?.username ? (
+        <div
+          onClick={handleDropdown}
+          className="relative group-hover:flex items-center gap-4"
+        >
+          <HiUser size={25} className="mx-auto group-hover:mx-0 text-primary" />
+          <div className="flex gap-1 cursor-pointer items-center">
+            <p className="text-center hidden group-hover:block">
+              {userInfo?.username}
+            </p>
+            <HiChevronDown className="hidden group-hover:block" />
+          </div>
+          {showDropdown && (
+            <ul className="absolute left-20 -top-20 group-hover:block hidden  bg-white text-darkLight px-4 py-2 rounded">
+              <li className="mb-2 ">
+                <Link className="hover:text-primary hover:font-semibold">
+                  Profile
+                </Link>
+              </li>
+              <li>
+                <button
+                  className="hover:text-primary hover:font-semibold"
+                  onClick={handleLogout}
+                  disabled={isLoading}
+                >
+                  {isLoading ? "Logging Out" : "Logout"}
+                </button>
+              </li>
+            </ul>
+          )}
         </div>
-        {showDropdown && (
-          <ul className="absolute left-20 -top-20 group-hover:block hidden  bg-white text-darkLight px-4 py-2 rounded">
-            <li className="mb-2 ">
-              <Link className="hover:text-primary hover:font-semibold">
-                Profile
-              </Link>
-            </li>
-            <li>
-              <Link className="hover:text-primary hover:font-semibold">
-                Logout
-              </Link>
-            </li>
-          </ul>
-        )}
-      </div>
+      ) : (
+        <></>
+      )}
       {!userInfo ? (
         <ul className="flex flex-col gap-4">
           <li>
