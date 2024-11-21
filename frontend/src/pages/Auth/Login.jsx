@@ -1,32 +1,23 @@
 //packages
-import { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
 //utils
 import { useLoginMutation } from "../../redux/api/usersApiSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { setCredentials } from "../../redux/features/auth/authSlice";
+import { useRedirect } from "../../hooks/useRedirect";
 
 const Login = () => {
   const [login, { isLoading }] = useLoginMutation();
   const { userInfo } = useSelector((state) => state.auth);
-
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+
+  useRedirect(userInfo);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const { search } = useLocation();
-  const sp = new URLSearchParams(search);
-  const redirect = sp.get("redirect") || "/";
-
-  useEffect(() => {
-    if (userInfo) {
-      navigate(redirect, { replace: true });
-    }
-  }, [userInfo, redirect, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

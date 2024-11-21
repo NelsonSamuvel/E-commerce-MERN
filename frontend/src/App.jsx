@@ -8,7 +8,9 @@ export default function App() {
     <>
       <ToastContainer />
       <Navigation />
-      <Outlet />
+      <main className="py-2">
+        <Outlet />
+      </main>
     </>
   );
 }

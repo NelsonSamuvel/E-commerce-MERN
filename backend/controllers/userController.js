@@ -7,7 +7,7 @@ const createUser = asyncHandler(async (req, res) => {
   const { username, password, email } = req.body;
 
   if (!username || !password || !email) {
-    throw new Error("Please fill all the fields");
+    return res.status(400).send("please fill all the fields");
   }
 
   const userExists = await User.findOne({ email });
@@ -59,7 +59,7 @@ const loginUser = asyncHandler(async (req, res) => {
     }
     return res.status(400).send("Invalid Password");
   }
-  return res.send(400).send("User not found");
+  return res.status(400).send("User not found");
 });
 
 const logoutUser = asyncHandler(async (req, res) => {
@@ -95,20 +95,22 @@ const updateProfile = asyncHandler(async (req, res) => {
   if (user) {
     user.username = req.body.username || user.username;
     user.email = req.body.email || user.email;
+    let salt = "";
     if (req.body.password) {
-      const salt = await byCrypt.genSalt(10);
+      salt = await byCrypt.genSalt(10);
       user.password = await byCrypt.hash(req.body.password, salt);
     }
+
     const updatedUser = await user.save();
 
     res.json({
       id: updatedUser._id,
       username: updatedUser.username,
       email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin,
     });
   } else {
-    res.status(404);
-    throw new Error("User not found");
+    res.status(404).send("User Not found");
   }
 });
 

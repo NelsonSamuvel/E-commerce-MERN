@@ -9,6 +9,7 @@ import {
   HiOutlineUserPlus,
   HiUser,
 } from "react-icons/hi2";
+
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../redux/features/auth/authSlice";
@@ -40,59 +41,104 @@ const Navigation = () => {
   };
 
   return (
-    <div className="group bg-darkLight fixed h-[100vh] w-[4%] hover:w-[15%]   flex flex-col gap-4 justify-between hover:px-6  pt-32 pb-6 z-50 transition-all duration-150">
+    <div className="group bg-darkLight fixed h-[100vh] w-[50px]  md:hover:w-[200px] flex flex-col gap-4 justify-between md:hover:px-6   pt-32 pb-6 z-50 transition-all duration-150">
       <div className="flex flex-col gap-8">
         <Link
           to={"/"}
-          className="group-hover:flex items-center gap-4 transform transition-all hover:translate-x-2 hover:text-primary duration-500"
+          className="md:group-hover:flex items-center gap-4 transform transition-all md:hover:translate-x-2 hover:text-primary duration-500"
         >
-          <HiOutlineHome size={25} className="mx-auto group-hover:mx-0" />
-          <span className="hidden group-hover:block">Home</span>
+          <HiOutlineHome className="icon mx-auto md:group-hover:mx-0" />
+          <span className="hidden  md:group-hover:block">Home</span>
         </Link>
         <Link
           to={"/shop"}
-          className="group-hover:flex items-center gap-4 transform transition-all hover:translate-x-2 hover:text-primary duration-500"
+          className="md:group-hover:flex items-center gap-4 transform transition-all md:hover:translate-x-2 hover:text-primary duration-500"
         >
-          <HiOutlineShoppingBag
-            size={25}
-            className="mx-auto group-hover:mx-0"
-          />
-          <span className="hidden group-hover:block">Shop</span>
+          <HiOutlineShoppingBag className="icon mx-auto md:group-hover:mx-0" />
+          <span className="hidden md:group-hover:block">Shop</span>
         </Link>
         <Link
           to={"/cart"}
-          className="group-hover:flex items-center gap-4 transform transition-all hover:translate-x-2 hover:text-primary duration-500"
+          className="md:group-hover:flex items-center gap-4 transform transition-all hover:translate-x-2 hover:text-primary duration-500"
         >
-          <HiOutlineShoppingCart
-            size={25}
-            className="mx-auto group-hover:mx-0"
-          />
-          <span className="hidden group-hover:block">Cart</span>
+          <HiOutlineShoppingCart className="icon mx-auto md:group-hover:mx-0" />
+          <span className="hidden md:group-hover:block">Cart</span>
         </Link>
         <Link
           to={"/favorites"}
-          className="group-hover:flex items-center gap-4 transform transition-all hover:translate-x-2 hover:text-primary duration-500"
+          className="md:group-hover:flex items-center gap-4 transform transition-all hover:translate-x-2 hover:text-primary duration-500"
         >
-          <HiOutlineHeart size={25} className="mx-auto group-hover:mx-0" />
-          <span className="hidden group-hover:block">Favorites</span>
+          <HiOutlineHeart className="icon mx-auto md:group-hover:mx-0" />
+          <span className="hidden md:group-hover:block">Favorites</span>
         </Link>
       </div>
       {userInfo?.username ? (
         <div
           onClick={handleDropdown}
-          className="relative group-hover:flex items-center gap-4"
+          className="relative md:group-hover:flex items-center gap-4"
         >
-          <HiUser size={25} className="mx-auto group-hover:mx-0 text-primary" />
+          <HiUser className="icon mx-auto md:group-hover:mx-0 text-primary" />
           <div className="flex gap-1 cursor-pointer items-center">
-            <p className="text-center hidden group-hover:block">
+            <p className="text-center hidden md:group-hover:block">
               {userInfo?.username}
             </p>
-            <HiChevronDown className="hidden group-hover:block" />
+            <HiChevronDown className="hidden md:group-hover:block" />
           </div>
           {showDropdown && (
-            <ul className="absolute left-20 -top-20 group-hover:block hidden  bg-white text-darkLight px-4 py-2 rounded">
-              <li className="mb-2 ">
-                <Link className="hover:text-primary hover:font-semibold">
+            <ul
+              className={`absolute  md:left-20 -top-20 ${
+                userInfo?.isAdmin ? " md:-top-60 md:left-16" : ""
+              } group-hover:block hidden text-sm bg-darkLight  md:bg-secondary px-5 py-3 rounded`}
+            >
+              {userInfo?.isAdmin && (
+                <>
+                  <li className="mb-3 ">
+                    <Link
+                      to={"/admin/dashboard"}
+                      className="hover:text-primary hover:font-semibold"
+                    >
+                      Dashboard
+                    </Link>
+                  </li>
+                  <li className="mb-3 ">
+                    <Link
+                      to={"/admin/products"}
+                      className="hover:text-primary hover:font-semibold"
+                    >
+                      Products
+                    </Link>
+                  </li>
+                  <li className="mb-3 ">
+                    <Link
+                      to={"/admin/categories"}
+                      className="hover:text-primary hover:font-semibold"
+                    >
+                      Categories
+                    </Link>
+                  </li>
+                  <li className="mb-3 ">
+                    <Link
+                      to={"/admin/orders"}
+                      className="hover:text-primary hover:font-semibold"
+                    >
+                      Orders
+                    </Link>
+                  </li>
+                  <li className="mb-3 ">
+                    <Link
+                      to={"/admin/users"}
+                      className="hover:text-primary hover:font-semibold"
+                    >
+                      Users
+                    </Link>
+                  </li>
+                </>
+              )}
+              <li className="mb-3 ">
+                <Link
+                  to={"profile"}
+                  className="hover:text-primary hover:font-semibold"
+                >
                   Profile
                 </Link>
               </li>

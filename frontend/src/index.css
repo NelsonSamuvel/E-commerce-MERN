@@ -29,4 +29,8 @@
   .btn {
     @apply bg-primary px-4 py-1.5 rounded hover:opacity-80 font-semibold;
   }
+
+  .icon {
+    @apply w-5 h-5 md:w-6 md:h-6;
+  }
 }
