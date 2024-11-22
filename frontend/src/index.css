@@ -18,7 +18,7 @@
 
 @layer base {
   .margin-l {
-    @apply ml-[10rem];
+    @apply  ml-[10rem];
   }
   .padding-t {
     @apply pt-28;

@@ -52,8 +52,8 @@ const Profile = () => {
   if (isLoading) return <p>Loading...</p>;
 
   return (
-    <section className="mt-8">
-      <div className="margin-l max-md:w-[300px]  md:w-[400px] lg:w-1/3 mx-auto bg-darkLight px-8 py-6 rounded-sm">
+    <section className="mt-8 max-sm:ml-10 flex items-center justify-center min-h-[80vh]">
+      <div className=" max-md:w-[300px]  md:w-[400px] lg:w-1/3 mx-auto bg-darkLight px-8 py-6 rounded-sm">
         <h1 className="text-2xl font-semibold">Profile</h1>
         <form className="mt-8" onSubmit={handleSubmit}>
           <div className="my-6 flex flex-col gap-4">
@@ -65,7 +65,7 @@ const Profile = () => {
               name="username"
               id="username"
               placeholder="Enter your username"
-              className="py-1 px-2 rounded text-darkLight focus:outline-none focus:ring focus:ring-primary"
+              className="py-1 px-2  rounded text-darkLight focus:outline-none focus:ring focus:ring-primary"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             />
