@@ -126,7 +126,7 @@ const Navigation = () => {
                   </li>
                   <li className="mb-3 ">
                     <Link
-                      to={"/admin/users"}
+                      to={"/admin/usersList"}
                       className="hover:text-primary hover:font-semibold"
                     >
                       Users
@@ -162,22 +162,19 @@ const Navigation = () => {
           <li>
             <Link
               to={"/login"}
-              className="group-hover:flex items-center gap-4 transform transition-all hover:translate-x-2 hover:text-primary duration-500"
+              className="md:group-hover:flex items-center gap-4 transform transition-all hover:translate-x-2 hover:text-primary duration-500"
             >
-              <HiOutlinePower size={25} className="mx-auto group-hover:mx-0" />
-              <span className="hidden group-hover:block">Login</span>
+              <HiOutlinePower className="icon mx-auto md:group-hover:mx-0" />
+              <span className="hidden md:group-hover:block">Login</span>
             </Link>
           </li>
           <li>
             <Link
               to={"/register"}
-              className="group-hover:flex items-center gap-4 transform transition-all hover:translate-x-2 hover:text-primary duration-500"
+              className="md:group-hover:flex items-center gap-4 transform transition-all hover:translate-x-2 hover:text-primary duration-500"
             >
-              <HiOutlineUserPlus
-                size={25}
-                className="mx-auto group-hover:mx-0"
-              />
-              <span className="hidden group-hover:block">Register</span>
+              <HiOutlineUserPlus className="icon mx-auto md:group-hover:mx-0" />
+              <span className="hidden md:group-hover:block">Register</span>
             </Link>
           </li>
         </ul>

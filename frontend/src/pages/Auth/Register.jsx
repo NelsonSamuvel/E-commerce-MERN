@@ -35,10 +35,10 @@ const Register = () => {
   };
 
   return (
-    <section>
-      <div className="margin-l pt-16">
-        <h1 className="text-2xl font-semibold">Create a new account</h1>
-        <form className="w-1/2 mt-12" onSubmit={handleSubmit}>
+    <section className="min-h-screen flex items-center justify-center pt-12">
+      <div className="w-2/3 max-md:ml-12 md:w-1/2 lg:w-1/3">
+        <h2 className="text-2xl font-semibold">Create a new account</h2>
+        <form onSubmit={handleSubmit}>
           <div className="my-6 flex flex-col gap-4">
             <label htmlFor="username" className="font-semibold tracking-wide">
               Username
